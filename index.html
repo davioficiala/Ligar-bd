@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sistema Firebase</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f2f2f2;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:15px;
+margin-bottom:20px;
+border-radius:10px;
+max-width:500px;
+}
+
+input{
+width:100%;
+padding:10px;
+margin-top:8px;
+border:1px solid #ccc;
+border-radius:8px;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:12px;
+background:#22c55e;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 👤 CLIENTE -->
+<div class="card">
+<h2>Cliente</h2>
+
+<input id="c_nome" placeholder="Nome">
+<input id="c_telefone" placeholder="Telefone">
+<input id="c_email" placeholder="Email">
+
+<button onclick="salvarCliente()">Salvar Cliente</button>
+</div>
+
+<!-- 👷 FUNCIONÁRIO -->
+<div class="card">
+<h2>Funcionário</h2>
+
+<input id="f_nome" placeholder="Nome">
+<input id="f_telefone" placeholder="Telefone">
+<input id="f_email" placeholder="Email">
+<input id="f_endereco" placeholder="Endereço">
+<input id="f_cidade" placeholder="Cidade">
+<input id="f_pais" placeholder="País">
+<input id="f_preco" placeholder="Preço">
+<input id="f_id" placeholder="Identificação">
+
+<button onclick="salvarFuncionario()">Salvar Funcionário</button>
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyAE2VcJyqu01rtqlgVoMg634FFfTGxiRgc",
+authDomain: "brain-orcamento.firebaseapp.com",
+projectId: "brain-orcamento",
+storageBucket: "brain-orcamento.firebasestorage.app",
+messagingSenderId: "991853359315",
+appId: "1:991853359315:web:b2270aab447a853b212426"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.salvarCliente = async () => {
+
+await addDoc(collection(db,"usuarios"),{
+nome: c_nome.value,
+telefone: c_telefone.value,
+email: c_email.value,
+tipo:"cliente"
+});
+
+alert("Cliente salvo!");
+};
+
+window.salvarFuncionario = async () => {
+
+await addDoc(collection(db,"funcionarios"),{
+nome: f_nome.value,
+telefone: f_telefone.value,
+email: f_email.value,
+endereco: f_endereco.value,
+cidade: f_cidade.value,
+pais: f_pais.value,
+preco: f_preco.value,
+identificacao: f_id.value,
+tipo:"funcionario"
+});
+
+alert("Funcionário salvo!");
+};
+
+</script>
+
+</body>
+</html>
